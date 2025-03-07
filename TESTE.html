@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Vermelho Fugitivo e Botão Verde Fixo</title>
+    <style>
+        /* Estilo do corpo da página */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Altura total da janela */
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            flex-direction: column; /* Alinha os itens em coluna */
+            font-family: Arial, sans-serif;
+            position: relative; /* Permite posicionar elementos filhos de forma absoluta */
+
+            /* Imagem de fundo */
+            background-image: url('casa.JPEG'); /* Substitua pelo link da sua imagem */
+            background-size: cover; /* Cobrir toda a tela */
+            background-position: center; /* Centralizar a imagem */
+            background-repeat: no-repeat; /* Evitar repetição */
+        }
+
+        /* Estilo do título */
+        h1 {
+            margin-bottom: 200px; /* Espaçamento abaixo do título */
+            font-size: 100px;
+            color: #fff; /* Cor do texto (branco para contraste) */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombra no texto para melhorar a legibilidade */
+        }
+
+        /* Container para os botões */
+        .container-botoes {
+            display: flex; /* Alinha os botões lado a lado */
+            gap: 25px; /* Espaçamento entre os botões */
+        }
+
+        /* Estilo do botão vermelho */
+        .botao-vermelho {
+            background-color: red; /* Cor de fundo vermelha */
+            color: white; /* Cor do texto branco */
+            padding: 15px 30px; /* Espaçamento interno */
+            font-size: 30px; /* Tamanho da fonte */
+            border: none; /* Remove a borda */
+            border-radius: 10px; /* Borda arredondada */
+            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+            position: absolute; /* Permite posicionar o botão em qualquer lugar da tela */
+            transition: top 0.5s, left 0.5s; /* Suaviza o movimento */
+        }
+
+        .botao-vermelho:hover {
+            background-color: darkred; /* Muda a cor ao passar o mouse */
+        }
+
+        /* Estilo do botão verde */
+        .botao-verde {
+            background-color: green; /* Cor de fundo verde */
+            color: white; /* Cor do texto branco */
+            padding: 15px 30px; /* Espaçamento interno */
+            font-size: 30px; /* Tamanho da fonte */
+            border: none; /* Remove a borda */
+            border-radius: 10px; /* Borda arredondada */
+            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+        }
+
+        .botao-verde:hover {
+            background-color: darkgreen; /* Muda a cor ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <h1>Quer casar CMG?</h1>
+    <div class="container-botoes">
+        <button class="botao-verde" id="botaoFixo" onclick="abrirOutraPagina()">sim</button>
+    </div>
+    <button class="botao-vermelho" id="botaoFugitivo">Não</button>
+
+    <script>
+        // Função para mover o botão vermelho para uma posição aleatória
+        function moverBotao() {
+            const botao = document.getElementById("botaoFugitivo");
+            const janelaLargura = window.innerWidth; // Largura da janela do navegador
+            const janelaAltura = window.innerHeight; // Altura da janela do navegador
+
+            // Gera posições aleatórias dentro da janela
+            const novaPosicaoX = Math.floor(Math.random() * (janelaLargura - botao.offsetWidth));
+            const novaPosicaoY = Math.floor(Math.random() * (janelaAltura - botao.offsetHeight));
+
+            // Aplica as novas posições ao botão
+            botao.style.left = `${novaPosicaoX}px`;
+            botao.style.top = `${novaPosicaoY}px`;
+        }
+
+        // Posiciona o botão vermelho ao lado do botão verde inicialmente
+        function posicionarBotaoInicialmente() {
+            const botaoVerde = document.getElementById("botaoFixo");
+            const botaoVermelho = document.getElementById("botaoFugitivo");
+
+            // Obtém a posição do botão verde
+            const rect = botaoVerde.getBoundingClientRect();
+
+            // Define a posição do botão vermelho ao lado do botão verde
+            botaoVermelho.style.left = `${rect.right + 20}px`; // 20px de espaçamento
+            botaoVermelho.style.top = `${rect.top}px`;
+        }
+
+        // Função para abrir outra página
+        function abrirOutraPagina() {
+            window.location.href = "outra_pagina.html"; // Redireciona para a outra página
+        }
+
+        // Adiciona um evento de "mouseover" ao botão vermelho
+        const botaoFugitivo = document.getElementById("botaoFugitivo");
+        botaoFugitivo.addEventListener("mouseover", moverBotao);
+
+        // Posiciona o botão vermelho ao lado do botão verde ao carregar a página
+        window.addEventListener("load", posicionarBotaoInicialmente);
+    </script>
+</body>
+</html>
